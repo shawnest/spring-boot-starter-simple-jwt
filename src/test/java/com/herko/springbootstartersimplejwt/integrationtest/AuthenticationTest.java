@@ -53,7 +53,6 @@ public class AuthenticationTest {
     private MockHttpServletRequestBuilder buildTestJsonRequest() {
         return MockMvcRequestBuilders
                 .get("/test")
-                .with(csrf())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
     }
