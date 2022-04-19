@@ -1,9 +1,9 @@
 package com.herko.springbootstartersimplejwt.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.herko.springbootstartersimplejwt.security.exception.TokenIssuanceException;
 import com.herko.springbootstartersimplejwt.security.model.LoginResponse;
 import com.herko.springbootstartersimplejwt.security.service.TokenIssuer;
-import com.nimbusds.jose.JOSEException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -29,7 +29,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             loginResponse = new LoginResponse(
                     tokenIssuer.issueAccessToken(authentication.getPrincipal().toString()),
                     tokenIssuer.issueRefreshToken(authentication.getPrincipal().toString()));
-        } catch (JOSEException e) {
+        } catch (TokenIssuanceException e) {
             log.error("Failed to generate token for login response. Authentication {}", authentication, e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }

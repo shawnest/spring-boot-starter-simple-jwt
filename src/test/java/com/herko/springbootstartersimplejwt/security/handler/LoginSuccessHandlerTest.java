@@ -3,6 +3,7 @@ package com.herko.springbootstartersimplejwt.security.handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.herko.springbootstartersimplejwt.security.config.JwtConfig;
 import com.herko.springbootstartersimplejwt.security.config.WebSecurityConfig;
+import com.herko.springbootstartersimplejwt.security.exception.TokenIssuanceException;
 import com.herko.springbootstartersimplejwt.security.model.LoginResponse;
 import com.herko.springbootstartersimplejwt.security.service.JwtTokenIssuer;
 import com.herko.springbootstartersimplejwt.security.service.TokenIssuer;
@@ -27,7 +28,7 @@ class LoginSuccessHandlerTest {
     private final TokenIssuer tokenIssuer = Mockito.mock(TokenIssuer.class);
 
     @Test
-    void given_success_When_onAuthenticationSuccess_Then_willReturnLoginResponse() throws IOException, JOSEException {
+    void given_success_When_onAuthenticationSuccess_Then_willReturnLoginResponse() throws IOException, TokenIssuanceException {
         // Given
         Mockito.doReturn(TestRequestBuilder.VALID_JWT_TOKEN).when(tokenIssuer).issueAccessToken("test@test.com");
         Mockito.doReturn(TestRequestBuilder.VALID_JWT_TOKEN).when(tokenIssuer).issueRefreshToken("test@test.com");
